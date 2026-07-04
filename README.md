@@ -6,7 +6,7 @@ combobox. The option set can be sourced two ways — **Custom Metadata** (admin
 configurable, cacheable, deployable between orgs) or an **inline JS map** (zero
 server round-trip) — and the component behaves identically either way.
 
-![Architecture](docs/architecture.svg)
+<img width="4800" height="3100" alt="Dependent Picklist Pair - Component Architecture" src="https://github.com/user-attachments/assets/e5c4ea25-96ca-4aa0-afdc-070b3eb6ba0f" />
 
 ---
 
