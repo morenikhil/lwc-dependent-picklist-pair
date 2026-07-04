@@ -1,0 +1,49 @@
+<template>
+    <div class="slds-form-element__group">
+        <template lwc:if={isLoading}>
+            <div class="slds-p-vertical_x-small">
+                <lightning-spinner
+                    alternative-text="Loading options"
+                    size="small"
+                    variant="brand"
+                ></lightning-spinner>
+            </div>
+        </template>
+
+        <template lwc:if={showError}>
+            <div class="slds-text-color_error slds-p-vertical_xx-small" role="alert">
+                {errorMessage}
+            </div>
+        </template>
+
+        <div class="slds-grid slds-gutters slds-wrap">
+            <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+                <lightning-combobox
+                    data-role="parent"
+                    name="parent"
+                    label={parentLabel}
+                    placeholder={parentPlaceholder}
+                    value={parentValue}
+                    options={parentOptions}
+                    required={required}
+                    disabled={disabled}
+                    onchange={handleParentChange}
+                ></lightning-combobox>
+            </div>
+
+            <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+                <lightning-combobox
+                    data-role="child"
+                    name="child"
+                    label={childLabel}
+                    placeholder={computedChildPlaceholder}
+                    value={childValue}
+                    options={childOptions}
+                    required={isChildRequired}
+                    disabled={isChildDisabled}
+                    onchange={handleChildChange}
+                ></lightning-combobox>
+            </div>
+        </div>
+    </div>
+</template>

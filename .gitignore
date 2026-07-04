@@ -1,0 +1,13 @@
+# Salesforce / SFDX
+.sfdx/
+.sf/
+*.dup
+package.xml
+
+# VS Code
+.vscode/settings.json
+.vscode/launch.json
+
+# OS
+.DS_Store
+Thumbs.db

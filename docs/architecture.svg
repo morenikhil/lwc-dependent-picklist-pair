@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="620" viewBox="0 0 960 620" font-family="Segoe UI, Arial, sans-serif">
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#5a6b8c"/>
+    </marker>
+    <style>
+      .title  { font-size: 22px; font-weight: 700; fill: #16325c; }
+      .sub    { font-size: 13px; fill: #5a6b8c; }
+      .lbl    { font-size: 14px; font-weight: 600; fill: #16325c; }
+      .small  { font-size: 11.5px; fill: #54698d; }
+      .flow   { fill: #f3f6fb; stroke: #b7c3d6; stroke-width: 1.5; }
+      .comp   { fill: #eef4ff; stroke: #7aa5e8; stroke-width: 1.5; }
+      .apex   { fill: #fff4e6; stroke: #e8a24a; stroke-width: 1.5; }
+      .data   { fill: #eafaf1; stroke: #4bb87a; stroke-width: 1.5; }
+      .evt    { font-size: 11px; fill: #2f6f43; font-weight: 600; }
+      .edge   { stroke: #5a6b8c; stroke-width: 1.6; fill: none; }
+    </style>
+  </defs>
+
+  <text x="40" y="46" class="title">Dependent Picklist Pair — Component Architecture</text>
+  <text x="40" y="68" class="sub">Child picklist filters on parent selection · one internal shape · two interchangeable data sources</text>
+
+  <!-- Consumer layer -->
+  <rect x="40" y="92" width="880" height="300" class="flow" rx="10"/>
+  <text x="60" y="118" class="lbl">Consumer component  (e.g. c-dependent-picklist-pair-demo)</text>
+  <text x="60" y="137" class="small">Owns selection state · handles onchange { parentValue, childValue }</text>
+
+  <!-- Pair container -->
+  <rect x="70" y="156" width="820" height="210" class="comp" rx="10"/>
+  <text x="90" y="182" class="lbl">c-dependent-picklist-pair  (reusable)</text>
+  <text x="90" y="201" class="small">Normalizes source → { parentOptions, childOptionsByParent } · public API: checkValidity() reportValidity() reset() focus()</text>
+
+  <!-- Parent combobox -->
+  <rect x="100" y="222" width="340" height="120" class="comp" rx="8"/>
+  <text x="120" y="248" class="lbl">lightning-combobox — Parent</text>
+  <text x="120" y="270" class="small">options = parentOptions</text>
+  <text x="120" y="290" class="small">on change → recompute child options</text>
+  <text x="120" y="310" class="small">clear child if invalid under new parent</text>
+  <text x="120" y="330" class="small">fire change { parentValue, childValue }</text>
+
+  <!-- Child combobox -->
+  <rect x="520" y="222" width="340" height="120" class="comp" rx="8"/>
+  <text x="540" y="248" class="lbl">lightning-combobox — Child</text>
+  <text x="540" y="270" class="small">options = childOptionsByParent[parent]</text>
+  <text x="540" y="290" class="small">disabled until a parent is chosen</text>
+  <text x="540" y="310" class="small">required only when enabled</text>
+  <text x="540" y="330" class="small">fire change { parentValue, childValue }</text>
+
+  <!-- filter arrow parent -> child -->
+  <path d="M440,282 L520,282" class="edge" marker-end="url(#arrow)"/>
+  <text x="452" y="274" class="evt">filters</text>
+
+  <!-- Data sources -->
+  <rect x="70" y="430" width="400" height="150" class="apex" rx="10"/>
+  <text x="90" y="456" class="lbl">Metadata mode  —  grouping="Country_State"</text>
+  <text x="90" y="478" class="small">DependentPicklistController.getPicklistConfig(grouping)</text>
+  <text x="90" y="497" class="small">@AuraEnabled(cacheable=true) · with sharing</text>
+  <text x="90" y="516" class="small">SOQL: WHERE Grouping__c = :grouping AND Active__c = true</text>
+
+  <rect x="100" y="528" width="340" height="38" class="data" rx="6"/>
+  <text x="120" y="552" class="small">Dependent_Picklist_Mapping__mdt  (Custom Metadata)</text>
+
+  <rect x="500" y="430" width="360" height="150" class="comp" rx="10"/>
+  <text x="520" y="456" class="lbl">Map mode  —  mapping={...}</text>
+  <text x="520" y="478" class="small">Inline JS object — no server round-trip</text>
+  <text x="520" y="500" class="small">simple:  { Hardware: ['Laptop','Monitor'] }</text>
+  <text x="520" y="520" class="small">rich:    { parents:[…], children:{…} }</text>
+  <text x="520" y="546" class="small">mapping overrides grouping when both are set</text>
+
+  <!-- edges from pair to sources -->
+  <path d="M250,366 L250,430" class="edge" marker-end="url(#arrow)"/>
+  <text x="258" y="404" class="evt">grouping</text>
+  <path d="M700,366 L680,430" class="edge" marker-end="url(#arrow)"/>
+  <text x="690" y="404" class="evt">mapping</text>
+
+  <!-- consumer -> pair -->
+  <path d="M480,137 L480,156" class="edge" marker-end="url(#arrow)"/>
+</svg>

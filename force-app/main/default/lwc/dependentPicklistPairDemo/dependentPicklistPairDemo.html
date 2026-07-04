@@ -1,0 +1,59 @@
+<template>
+    <lightning-card title="Dependent Picklist Pair — Demo" icon-name="standard:choice">
+        <div class="slds-var-p-horizontal_medium slds-var-p-bottom_medium">
+            <!-- 1. Custom Metadata source -->
+            <div class="slds-box slds-var-m-bottom_medium">
+                <h2 class="slds-text-heading_small slds-var-m-bottom_x-small">
+                    Custom Metadata source
+                </h2>
+                <p class="slds-text-body_small slds-text-color_weak slds-var-m-bottom_small">
+                    Country &rarr; State, loaded from
+                    <code>Dependent_Picklist_Mapping__mdt</code> (grouping
+                    <code>Country_State</code>).
+                </p>
+                <c-dependent-picklist-pair
+                    grouping="Country_State"
+                    parent-label="Country"
+                    child-label="State / Province"
+                    parent-placeholder="Select a country"
+                    required
+                    onchange={handleCountryChange}
+                ></c-dependent-picklist-pair>
+                <p class="slds-var-m-top_small slds-text-body_small">
+                    <strong>Selection:</strong> {countrySummary}
+                </p>
+            </div>
+
+            <!-- 2. JS map source -->
+            <div class="slds-box slds-var-m-bottom_medium">
+                <h2 class="slds-text-heading_small slds-var-m-bottom_x-small">
+                    JS map source
+                </h2>
+                <p class="slds-text-body_small slds-text-color_weak slds-var-m-bottom_small">
+                    Category &rarr; Subcategory, driven by an inline JS object &mdash; no
+                    server call.
+                </p>
+                <c-dependent-picklist-pair
+                    mapping={productMap}
+                    parent-label="Category"
+                    child-label="Subcategory"
+                    parent-placeholder="Select a category"
+                    onchange={handleProductChange}
+                ></c-dependent-picklist-pair>
+                <p class="slds-var-m-top_small slds-text-body_small">
+                    <strong>Selection:</strong> {productSummary}
+                </p>
+            </div>
+
+            <div class="slds-grid slds-gutters">
+                <lightning-button
+                    label="Validate"
+                    variant="brand"
+                    onclick={handleValidate}
+                    class="slds-var-m-right_x-small"
+                ></lightning-button>
+                <lightning-button label="Reset" onclick={handleReset}></lightning-button>
+            </div>
+        </div>
+    </lightning-card>
+</template>
